@@ -1,0 +1,47 @@
+bookref(1)                                                    User Commands                                                             bookref(1)
+
+NAME
+       bookref - book referances
+
+SYNOPSIS
+       bookref [OPTION]...[search parameter] 
+       bookref [OPTION]...-R[range paramter 1][range parameter 2] 
+
+
+DESCRIPTION
+       List filtered book information. Will defualt to searching by title if you flags are provided.
+
+       Mandatory arguments to long options are mandatory for short options too.
+
+       -p, --sort=publication-year
+              displays resault sorted by publication year.
+
+       -t, --sort=title
+              displays resaults sorted by title
+
+       -A, --search=author
+              prints a list of books who's authors' names contains the search parameter. Displayed in order of author. If no search parameter is included, prints books in order of author name. 
+       -T, --search=title
+              prints a list of books who's authors' names contrain seach parameter.
+
+       -R  --search=range
+              given 2 range paramters of years, prints list of book published between parameters in order of published year.
+           --help
+              display this help index and exit
+
+       if you specify more then one of -A, -T, or -R  only the final one takes effect
+Exit status:
+       0      if OK,
+
+       1      if serious trouble (e.g., cannot access command-line argument).
+
+AUTHOR
+       Written by Soren DeHaan and Lev Shuster.
+
+REPORTING BUGS
+       shusterl@carleton.edu
+
+SEE ALSO
+       Full documentation at: <>https://www.gnu.org/software/coreutils/ls>
+
+                                                                  September 2021                                                            bookref(1)
