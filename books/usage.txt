@@ -1,35 +1,38 @@
 bookref(1)                                                    User Commands                                                             bookref(1)
 
 NAME
-       bookref - book referances
+       bookref - book references
 
 SYNOPSIS
-       bookref [OPTION]...[search parameter] 
-       bookref [OPTION]...-R[range paramter 1][range parameter 2] 
+       bookref [OPTION]... [SEARCH-PARAMETER] 
+       bookref [OPTION]... -R [RANGE-PARAMETER 1] [RANGE-PARAMETER 2] 
 
 
 DESCRIPTION
-       List filtered book information. Will defualt to searching by title if you flags are provided.
+       List filtered book information. Will default to searching by title if no flags are provided.
 
        Mandatory arguments to long options are mandatory for short options too.
 
        -p, --sort=publication-year
-              displays resault sorted by publication year.
+              displays results sorted by publication year.
 
        -t, --sort=title
-              displays resaults sorted by title
+              displays results sorted by title
 
        -A, --search=author
-              prints a list of books who's authors' names contains the search parameter. Displayed in order of author. If no search parameter is included, prints books in order of author name. 
+              prints a list of books whose authors' names contain the search parameter; displayed in order of author; if no search parameter is provided, prints all books
+       
        -T, --search=title
-              prints a list of books who's authors' names contrain seach parameter.
+              prints a list of books whose names contain the search parameter; if no search parameter is provided, prints all books
 
        -R  --search=range
-              given 2 range paramters of years, prints list of book published between parameters in order of published year.
+              given 2 range parameters of years, prints a list of books published between the parameters, inclusive, in order of published year; if only one range parameter is provided, prints a list of books published in that year; if no search parameter is provided, prints all books
+       
+       If you specify more then one of -A, -T, or -R, only the final one takes effect.
+           
            --help
               display this help index and exit
 
-       if you specify more then one of -A, -T, or -R  only the final one takes effect
 Exit status:
        0      if OK,
 
@@ -42,6 +45,6 @@ REPORTING BUGS
        shusterl@carleton.edu
 
 SEE ALSO
-       Full documentation at: <>https://www.gnu.org/software/coreutils/ls>
+       More information at: <>https://cs.carleton.edu/faculty/jondich/courses/cs257_f21/assignments/06_books.html>
 
                                                                   September 2021                                                            bookref(1)
