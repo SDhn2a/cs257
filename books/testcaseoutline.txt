@@ -1,0 +1,35 @@
+Authors _eq_
+    True if author=author
+    False if author=other author (Bronte vs. Pratchett)
+    False if author=half-name of an author (Bronte vs. other Bronte)
+    True if author=AUTHOR
+
+Books _eq_
+    True if book=book
+    False if book=other book
+    True if book=BOOK
+
+BooksDataSource __init__
+    Error if invalid csv location or not a csv
+    # of authors should be __
+    # of books should be __
+
+BooksDataSource authors
+    bad search string returns no results
+    None search string returns all authors
+    good search string returns __ results (also sorting)
+
+BooksDataSource books
+    bad search string returns no results
+    None search string returns all books
+    good search string returns __ results (also sorting)
+    good search string w/ year returns __
+    good search string w/ title returns __
+
+BooksDataSource books_between_years
+    good input returns __
+    no start_year good input returns __
+    no end_year good input returns __
+    Error if start_year after end_year
+    no input returns all books
+    Error if non-integer input
