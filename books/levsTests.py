@@ -11,6 +11,19 @@ class BooksDataSourceTester(unittest.TestCase):
 
     def tearDown(self):
         pass
+
+    # confirms that a error is raised if an invalid csv file location/name is provided
+    def test_invalid_csv_location(self):
+        self.assertRaises(FileNotFoundError, booksdatasource.BooksDataSource, 'books1.txt')
+
+    # confimrs that all the lines in the csv file is turned into a book instance
+    def test_number_of_books(self):
+        self.assertEqual(len(self.bookList) == 42)
+
+    # confims that no same author is being truned into multiple author instances
+    def test_number_of_authors(self):
+        self.assertEqual(len(self.authorsList) == 22)
+    
     
     ## five of the seven test are true from the get-go because the prof-provided code 
     ## already has the compairison code written for. However we wrote these test to show 
