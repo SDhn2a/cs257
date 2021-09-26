@@ -1,6 +1,5 @@
 '''
-   booksdatasourcetest.py
-   Jeff Ondich, 24 September 2021
+    rem to change this at the end
 '''
 
 import booksdatasource
@@ -12,12 +11,47 @@ class BooksDataSourceTester(unittest.TestCase):
 
     def tearDown(self):
         pass
+    
+    ## five of the seven test are true from the get-go because the prof-provided code 
+    ## already has the compairison code written for. However we wrote these test to show 
+    ## all the ways we have tested the given code instead of blindely including the provided methods.
 
-    def test_unique_author(self):
-        authors = self.data_source.authors('Pratchett')
-        self.assertTrue(len(authors) == 1)
-        self.assertTrue(authors[0] == Author('Pratchett', 'Terry'))
+    #checks if author compairison is true given the same two authors
+    def test_same_authors(self):
+        book1 = booksdatasource.Author("Lev", "Shuster")
+        book2 = booksdatasource.Author("Lev", "Shuster")
+        self.assertTrue(book1 == book2)
+    #checks if two diffrent Authors are not equal
+    def test_diffrent_authors(self):
+        book1 = booksdatasource.Author("Lev", "Shuster")
+        book2 = booksdatasource.Author("Eric", "Bradford")
+        self.assertFalse(book1 == book2)
+    #checks if two Authors two are diffrent but share some qualities are the same
+    def test_partially_diffrent_authors(self):
+        book1 = booksdatasource.Author("Lev", "Shuster")
+        book2 = booksdatasource.Author("Eric", "Shuster")
+        self.assertFalse(book1 == book2)
+    #checks if two Authors which diffrent capitalization but the same information return true
+    def test_same_authors_with_inconsistant_capitalization(self):
+        book1 = booksdatasource.Author("Lev", "Shuster")
+        book2 = booksdatasource.Author("LEV", "ShusTer")
+        self.assertTrue(book1 == book2)
 
+    #checks if title compairison is true given the same two titles
+    def test_same_title(self):
+        book1 = booksdatasource.Book("Reamde")
+        book2 = booksdatasource.Book("Reamde")
+        self.assertTrue(book1 == book2)
+    #checks if two diffrent titles are not equal
+    def test_diffrent_books(self):
+        book1 = booksdatasource.Book("Reamde")
+        book2 = booksdatasource.Book("Pride and Prejudice")
+        self.assertFalse(book1 == book2)
+    #checks if two Authors which diffrent capitalization but the same information return true
+    def test_same_books_with_inconsistant_capitalization(self):
+        book1 = booksdatasource.Book("Reamde")
+        book2 = booksdatasource.Book("REamde")
+        self.assertTrue(book1 == book2)
 if __name__ == '__main__':
     unittest.main()
 
