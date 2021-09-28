@@ -35,6 +35,8 @@ class Book:
         return self.title == other.title
 
 class BooksDataSource:
+    full_author_list = []
+
     def __init__(self, books_csv_file_name):
         ''' The books CSV file format looks like this:
 
@@ -49,7 +51,30 @@ class BooksDataSource:
             suitable instance variables for the BooksDataSource object containing
             a collection of Author objects and a collection of Book objects.
         '''
+        with open('books1.csv') as csv_file:
+            csv_reader = csv.reader(csv_file)
+            for line in csv_reader:
+                # parse authors
+                # parse books
+                # add authors + books to big lists
+
         pass
+
+    def parse_book_authors(self, author_input_string):
+        author_input_list = author_input_string.split("and") # takes input, splits in case of mult. authors
+        author_list = [] # this list is what will get returned, and contains newly-parsed authors
+        for author_input in author_input_list:
+            author_data = author_input.split()
+            author_given_name = author_data[0] # the first element of author_data is the given name
+            author_surname = author_data[len(author_data)-2] # the second to last element is the surname
+            author_dates = author_data[len(author_data)-1] # the last element is all of the dates
+            author_dates_list = author_dates[1:-1].split("-") # turns the birth/death dates into a list
+            if(len(author_dates_list) == 1): # add author to list to return
+                author_list.append(Author(author_given_name, author_surname, author_dates_list[0]))
+            else: # add author to list to return
+                author_list.append(Author(author_given_name, author_surname, author_dates_list[0], author_dates_list[1]))
+        
+        return author_list
 
     def authors(self, search_text=None):
         ''' Returns a list of all the Author objects in this data source whose names contain
