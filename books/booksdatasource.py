@@ -36,7 +36,7 @@ class Book:
 
 class BooksDataSource:
     full_author_list = []
-
+    full_book_list
     def __init__(self, books_csv_file_name):
         ''' The books CSV file format looks like this:
 
@@ -54,11 +54,19 @@ class BooksDataSource:
         with open('books1.csv') as csv_file:
             csv_reader = csv.reader(csv_file)
             for line in csv_reader:
-                # parse authors
-                # parse books
+                author_list = parse_book_authors(line[2])
                 # add authors + books to big lists
+                append_unique_authors(author_list)
+                # parse books
+                full_book_list.append(Book(line[0], line[1], author_list)
+                
+    def append_unique_authors(author_list):
+        for author in author_list:
+            if author not in full_author_list:
+                full_author_list.append(author)
 
-        pass
+
+
 
     def parse_book_authors(self, author_input_string):
         author_input_list = author_input_string.split("and") # takes input, splits in case of mult. authors
