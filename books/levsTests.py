@@ -16,18 +16,18 @@ class BooksDataSourceTester(unittest.TestCase):
     def test_invalid_csv_location(self):
         self.assertRaises(FileNotFoundError, booksdatasource.BooksDataSource, 'books1.txt')
 
-    # confimrs that all the lines in the csv file is turned into a book instance
+    # confirms that all the lines in the csv file is turned into a book instance
     def test_number_of_books(self):
-        self.assertEqual(len(self.bookList) == 42)
+        self.assertEqual(len(books(self.data_source)) == 42)
 
-    # confims that no same author is being truned into multiple author instances
+    # confirms that no same author is being turned into multiple author instances
     def test_number_of_authors(self):
-        self.assertEqual(len(self.authorsList) == 22)
+        self.assertEqual(len(authors(self.data_source)) == 22)
     
     
-    ## five of the seven test are true from the get-go because the prof-provided code 
-    ## already has the compairison code written for. However we wrote these test to show 
-    ## all the ways we have tested the given code instead of blindely including the provided methods.
+    ## five of the twenty-three tests pass from the get-go because the code that was provided 
+    ## already has the compairison code written for. However, we wrote these tests to show 
+    ## the ways we have tested the given code instead of just including the provided methods.
 
     #checks if author compairison is true given the same two authors
     def test_same_authors(self):

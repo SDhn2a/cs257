@@ -24,12 +24,11 @@ BooksDataSource books
     None search string returns all books
     good search string returns __ results (also sorting)
     good search string w/ year returns __
-    good search string w/ title returns __
 
 BooksDataSource books_between_years
     good input returns __
     no start_year good input returns __
     no end_year good input returns __
-    Error if start_year after end_year
+    no results if start_year after end_year
     no input returns all books
     Error if non-integer input
