@@ -36,7 +36,7 @@ class Book:
 
 class BooksDataSource:
     full_author_list = []
-    full_book_list
+    full_book_list = []
     def __init__(self, books_csv_file_name):
         ''' The books CSV file format looks like this:
 
@@ -54,19 +54,16 @@ class BooksDataSource:
         with open('books1.csv') as csv_file:
             csv_reader = csv.reader(csv_file)
             for line in csv_reader:
-                author_list = parse_book_authors(line[2])
+                author_list = self.parse_book_authors(line[2])
                 # add authors + books to big lists
-                append_unique_authors(author_list)
+                self.append_unique_authors(author_list)
                 # parse books
-                full_book_list.append(Book(line[0], line[1], author_list)
+                self.full_book_list.append(Book(line[0], line[1], author_list))
                 
-    def append_unique_authors(author_list):
+    def append_unique_authors(self, author_list):
         for author in author_list:
-            if author not in full_author_list:
-                full_author_list.append(author)
-
-
-
+            if author not in self.full_author_list:
+                self.full_author_list.append(author)
 
     def parse_book_authors(self, author_input_string):
         author_input_list = author_input_string.split("and") # takes input, splits in case of mult. authors
@@ -90,7 +87,7 @@ class BooksDataSource:
             returns all of the Author objects. In either case, the returned list is sorted
             by surname, breaking ties using given name (e.g. Ann Brontë comes before Charlotte Brontë).
         '''
-        return []
+        return self.full_author_list
 
     def books(self, search_text=None, sort_by='title'):
         ''' Returns a list of all the Book objects in this data source whose
@@ -104,7 +101,7 @@ class BooksDataSource:
                 default -- same as 'title' (that is, if sort_by is anything other than 'year'
                             or 'title', just do the same thing you would do for 'title')
         '''
-        return []
+        return self.full_book_list
 
     def books_between_years(self, start_year=None, end_year=None):
         ''' Returns a list of all the Book objects in this data source whose publication
