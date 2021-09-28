@@ -18,7 +18,7 @@ class Author:
 
     def __eq__(self, other):
         ''' For simplicity, we're going to assume that no two authors have the same name. '''
-        return self.surname == other.surname and self.given_name == other.given_name
+        return self.surname.lower() == other.surname.lower() and self.given_name.lower() == other.given_name.lower()
 
 class Book:
     def __init__(self, title='', publication_year=None, authors=[]):
@@ -32,7 +32,7 @@ class Book:
         ''' We're going to make the excessively simplifying assumption that
             no two books have the same title, so "same title" is the same
             thing as "same book". '''
-        return self.title == other.title
+        return self.title.lower() == other.title.lower()
 
 class BooksDataSource:
     full_author_list = []
@@ -58,7 +58,8 @@ class BooksDataSource:
                 # add authors + books to big lists
                 self.append_unique_authors(author_list)
                 # parse books
-                self.full_book_list.append(Book(line[0], line[1], author_list))
+                # self.full_book_list.append(Book(line[0], line[1], author_list))
+                self.full_book_list.append(1)
                 
     def append_unique_authors(self, author_list):
         for author in author_list:

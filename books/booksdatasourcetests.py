@@ -12,12 +12,12 @@
 
 '''
 
-import booksdatasource
+from booksdatasource import *
 import unittest
 
 class BooksDataSourceTester(unittest.TestCase):
     def setUp(self):
-        self.data_source = booksdatasource.BooksDataSource('books1.csv')
+        self.data_source = BooksDataSource('books1.csv')
 
     def tearDown(self):
         pass
@@ -40,97 +40,97 @@ class BooksDataSourceTester(unittest.TestCase):
 
     # checks if author comparison is true given the same two authors
     def test_same_authors(self):
-        book1 = booksdatasource.Author("Lev", "Shuster")
-        book2 = booksdatasource.Author("Lev", "Shuster")
+        book1 = Author("Lev", "Shuster")
+        book2 = Author("Lev", "Shuster")
         self.assertTrue(book1 == book2)
 
     # checks if two different authors are not equal
     def test_different_authors(self):
-        book1 = booksdatasource.Author("Lev", "Shuster")
-        book2 = booksdatasource.Author("Eric", "Bradford")
+        book1 = Author("Lev", "Shuster")
+        book2 = Author("Eric", "Bradford")
         self.assertFalse(book1 == book2)
 
     # checks if two authors two are different but share some qualities that are the same
     def test_partially_different_authors(self):
-        book1 = booksdatasource.Author("Lev", "Shuster")
-        book2 = booksdatasource.Author("Eric", "Shuster")
+        book1 = Author("Lev", "Shuster")
+        book2 = Author("Eric", "Shuster")
         self.assertFalse(book1 == book2)
 
     # checks if two authors which different capitalization but the same information return true
     def test_same_authors_with_inconsistent_capitalization(self):
-        book1 = booksdatasource.Author("Lev", "Shuster")
-        book2 = booksdatasource.Author("LEV", "ShusTer")
+        book1 = Author("Lev", "Shuster")
+        book2 = Author("LEV", "ShusTer")
         self.assertTrue(book1 == book2)
 
 
 
     # checks if title comparison is true given the same two titles
     def test_same_title(self):
-        book1 = booksdatasource.Book("Reamde")
-        book2 = booksdatasource.Book("Reamde")
+        book1 = Book("Reamde")
+        book2 = Book("Reamde")
         self.assertTrue(book1 == book2)
 
     # checks if two different titles are not equal
     def test_diffrent_books(self):
-        book1 = booksdatasource.Book("Reamde")
-        book2 = booksdatasource.Book("Pride and Prejudice")
+        book1 = Book("Reamde")
+        book2 = Book("Pride and Prejudice")
         self.assertFalse(book1 == book2)
 
     # checks if two authors with different capitalization but the same information return true
     def test_same_books_with_inconsistant_capitalization(self):
-        book1 = booksdatasource.Book("Reamde")
-        book2 = booksdatasource.Book("REamde")
+        book1 = Book("Reamde")
+        book2 = Book("REamde")
         self.assertTrue(book1 == book2)
 
 
 
     # confirms that a bad author search doesn't return results
     def test_bad_author_search(self):
-        self.assertEqual(len(authors(self.data_source,"qazx")) == 0)
+        self.assertEqual(len(self.data_source.authors("qazx")) == 0)
 
     # confirms that an empty author search returns all results
     def test_none_author_search(self):
-        self.assertEqual(len(authors(self.data_source,None)) == 42)
+        self.assertEqual(len(self.data_source.authors(self.data_source,None)) == 41)
 
     # confirms that a good author search returns the correct, sorted data
     def test_good_author_search(self):
-        self.assertEqual(authors(self.data_source,"Bron")[0].title == "The Tenant of Wildfell Hall")
+        self.assertEqual(self.data_source.authors(self.data_source,"Bron")[0].title == "The Tenant of Wildfell Hall")
 
 
 
     # confirms that a bad search doesn't return results
     def test_bad_book_search(self):
-        self.assertEqual(len(books(self.data_source,"qazx")) == 0)
+        self.assertEqual(len(self.data_source.books(self.data_source,"qazx")) == 0)
 
     # confirms that an empty search returns all results
     def test_none_book_search(self):
-        self.assertEqual(len(books(self.data_source,None)) == 42)
+        self.assertEqual(len(self.data_source.books(self.data_source,None)) == 42)
 
     # confirms that a good search returns the correct, sorted data
     def test_good_book_search(self):
-        self.assertEqual(books(self.data_source,"the")[12].title == "Wuthering Heights")
+        self.assertEqual(self.data_source.books(self.data_source,"the")[12].title == "Wuthering Heights")
 
     # confirms that a good search with year search tag returns the correct, sorted data
     def test_good_book_search_year(self):
-        self.assertEqual(books(self.data_source,"the",'year')[12].title == "The Invisible Life of Addie LaRue")
+        self.assertEqual(self.data_source.books(self.data_source,"the",'year')[12].title == "The Invisible Life of Addie LaRue")
 
 
 
     # confirms that a noninteger search returns an error
     def test_noninteger_range_search(self):
-        self.assertRaises(SomeSortOfError,books_between_years(self.data_source,"qazx"))
+        self.assertRaises(SomeSortOfError,self.data_source.books_between_years(self.data_source,"qazx"))
         
     # confirms that a bad range search doesn't return results
     def test_impossible_range_search(self):
-        self.assertEqual(len(books_between_years(self.data_source,2000,1900)) == 0)
+        self.assertEqual(len(self.data_source.books_between_years(self.data_source,2000,1900)) == 0)
 
     # confirms that an empty range search returns all results
     def test_none_range_search(self):
-        self.assertEqual(len(books_between_years(self.data_source,None)) == 42)
+        self.assertEqual(len(self.data_source.books_between_years(self.data_source,None)) == 42)
 
     # confirms that a good range search returns the correct, sorted data
     def test_good_range_search(self):
-        self.assertEqual(books(self.data_source,2001,2010)[1].title == "1Q84")
+        self.assertEqual(self.data_source.books(self.data_source,2001,2010)[1].title == "1Q84")
 
     # # confirms that a good range search (without end date) returns the correct, sorted data
     # def test_good_range_search_start(self):
@@ -138,7 +138,7 @@ class BooksDataSourceTester(unittest.TestCase):
 
     # confirms that a good range search (without start date) returns the correct, sorted data
     def test_good_range_search_end(self):
-        self.assertEqual(books(self.data_source,None,1815)[0].title == "Pride and Prejudice")
+        self.assertEqual(self.data_source.books(self.data_source,None,1815)[0].title == "Pride and Prejudice")
 
 
 
