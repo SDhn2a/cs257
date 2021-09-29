@@ -35,8 +35,6 @@ class Book:
         return self.title.lower() == other.title.lower()
 
 class BooksDataSource:
-    full_author_list = []
-    full_book_list = []
     def __init__(self, books_csv_file_name):
         ''' The books CSV file format looks like this:
 
@@ -51,6 +49,9 @@ class BooksDataSource:
             suitable instance variables for the BooksDataSource object containing
             a collection of Author objects and a collection of Book objects.
         '''
+        self.full_author_list = []
+        self.full_book_list = []
+
         with open('books1.csv') as csv_file:
             csv_reader = csv.reader(csv_file)
             for line in csv_reader:

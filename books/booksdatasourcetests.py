@@ -4,7 +4,7 @@
     
    >> >> BEGIN IMPORTANT THING << <<
 
-   five of the twenty-two tests pass from the get-go because the code that was provided
+   five of the twenty-one tests pass from the get-go because the code that was provided
    already has comparison code written. However, we wrote these tests to show the ways we
    have tested the given code instead of just including the provided methods.
 
@@ -12,7 +12,7 @@
 
 '''
 
-from booksdatasource import *
+from booksdatasource import Author, Book, BooksDataSource
 import unittest
 
 class BooksDataSourceTester(unittest.TestCase):
@@ -30,7 +30,7 @@ class BooksDataSourceTester(unittest.TestCase):
 
     # confirms that all the lines in the csv file are turned into a book instance
     def test_number_of_books(self):
-        self.assertEqual(len(self.data_source.books()),42)
+        self.assertEqual(len(self.data_source.books()),41)
 
     # confirms that no same author is being turned into multiple author instances
     def test_number_of_authors(self):
@@ -71,7 +71,7 @@ class BooksDataSourceTester(unittest.TestCase):
         self.assertTrue(book1 == book2)
 
     # checks if two different titles are not equal
-    def test_diffrent_books(self):
+    def test_different_books(self):
         book1 = Book("Reamde")
         book2 = Book("Pride and Prejudice")
         self.assertFalse(book1 == book2)
@@ -104,7 +104,7 @@ class BooksDataSourceTester(unittest.TestCase):
 
     # confirms that an empty search returns all results
     def test_none_book_search(self):
-        self.assertEqual(len(self.data_source.books(self.data_source,None)) == 42)
+        self.assertEqual(len(self.data_source.books(self.data_source,None)) == 41)
 
     # confirms that a good search returns the correct, sorted data
     def test_good_book_search(self):
@@ -118,7 +118,7 @@ class BooksDataSourceTester(unittest.TestCase):
 
     # confirms that a noninteger search returns an error
     def test_noninteger_range_search(self):
-        self.assertRaises(SomeSortOfError,self.data_source.books_between_years(self.data_source,"qazx"))
+        self.assertRaises(SomeSortOfError,self.data_source.books_between_years,self.data_source,"qazx")
         
     # confirms that a bad range search doesn't return results
     def test_impossible_range_search(self):
@@ -126,7 +126,7 @@ class BooksDataSourceTester(unittest.TestCase):
 
     # confirms that an empty range search returns all results
     def test_none_range_search(self):
-        self.assertEqual(len(self.data_source.books_between_years(self.data_source,None)) == 42)
+        self.assertEqual(len(self.data_source.books_between_years(self.data_source,None)) == 41)
 
     # confirms that a good range search returns the correct, sorted data
     def test_good_range_search(self):
