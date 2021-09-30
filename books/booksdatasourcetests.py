@@ -90,29 +90,29 @@ class BooksDataSourceTester(unittest.TestCase):
 
     # confirms that an empty author search returns all results
     def test_none_author_search(self):
-        self.assertEqual(len(self.data_source.authors(self.data_source,None)),41)
+        self.assertEqual(len(self.data_source.authors(None)),22)
 
     # confirms that a good author search returns the correct, sorted data
     def test_good_author_search(self):
-        self.assertEqual(self.data_source.authors(self.data_source,"Bron")[0].title,"The Tenant of Wildfell Hall")
+        self.assertEqual(self.data_source.authors("Bron")[0].given_name,"Ann")
 
 
 
     # confirms that a bad search doesn't return results
     def test_bad_book_search(self):
-        self.assertEqual(len(self.data_source.books(self.data_source,"qazx")),0)
+        self.assertEqual(len(self.data_source.books("qazx")),0)
 
     # confirms that an empty search returns all results
     def test_none_book_search(self):
-        self.assertEqual(len(self.data_source.books(self.data_source,None)),41)
+        self.assertEqual(len(self.data_source.books(None)),41)
 
     # confirms that a good search returns the correct, sorted data
     def test_good_book_search(self):
-        self.assertEqual(self.data_source.books(self.data_source,"the")[12].title,"Wuthering Heights")
+        self.assertEqual(self.data_source.books("the")[12].title,"Wuthering Heights")
 
     # confirms that a good search with year search tag returns the correct, sorted data
     def test_good_book_search_year(self):
-        self.assertEqual(self.data_source.books(self.data_source,"the",'year')[12].title,"The Invisible Life of Addie LaRue")
+        self.assertEqual(self.data_source.books("the",'year')[12].title,"The Invisible Life of Addie LaRue")
 
 
 
@@ -122,15 +122,15 @@ class BooksDataSourceTester(unittest.TestCase):
         
     # confirms that a bad range search doesn't return results
     def test_impossible_range_search(self):
-        self.assertEqual(len(self.data_source.books_between_years(self.data_source,2000,1900)),0)
+        self.assertEqual(len(self.data_source.books_between_years(2000,1900)),0)
 
     # confirms that an empty range search returns all results
     def test_none_range_search(self):
-        self.assertEqual(len(self.data_source.books_between_years(self.data_source,None)),41)
+        self.assertEqual(len(self.data_source.books_between_years(None)),41)
 
     # confirms that a good range search returns the correct, sorted data
     def test_good_range_search(self):
-        self.assertEqual(self.data_source.books(self.data_source,2001,2010)[1].title,"1Q84")
+        self.assertEqual(self.data_source.books(2001,2010)[1].title,"1Q84")
 
     # # confirms that a good range search (without end date) returns the correct, sorted data
     # def test_good_range_search_start(self):
@@ -138,7 +138,7 @@ class BooksDataSourceTester(unittest.TestCase):
 
     # confirms that a good range search (without start date) returns the correct, sorted data
     def test_good_range_search_end(self):
-        self.assertEqual(self.data_source.books(self.data_source,None,1815)[0].title,"Pride and Prejudice")
+        self.assertEqual(self.data_source.books(None,1815)[0].title,"Pride and Prejudice")
 
 
 
