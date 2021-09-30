@@ -130,7 +130,7 @@ class BooksDataSourceTester(unittest.TestCase):
 
     # confirms that a good range search returns the correct, sorted data
     def test_good_range_search(self):
-        self.assertEqual(self.data_source.books(2001,2010)[1].title,"1Q84")
+        self.assertEqual(self.data_source.books_between_years(2001,2010)[1].title,"1Q84")
 
     # # confirms that a good range search (without end date) returns the correct, sorted data
     # def test_good_range_search_start(self):
@@ -138,7 +138,7 @@ class BooksDataSourceTester(unittest.TestCase):
 
     # confirms that a good range search (without start date) returns the correct, sorted data
     def test_good_range_search_end(self):
-        self.assertEqual(self.data_source.books(None,1815)[0].title,"Pride and Prejudice")
+        self.assertEqual(len(self.data_source.books_between_years(None,1815)),4)
 
 
 
