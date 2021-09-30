@@ -112,7 +112,15 @@ class BooksDataSource:
                 default -- same as 'title' (that is, if sort_by is anything other than 'year'
                             or 'title', just do the same thing you would do for 'title')
         '''
-        return self.full_book_list
+        temp_book_list = []
+        for book in self.full_book_list:
+            if search_text == None or book.title.lower().__contains__(search_text.lower()):
+                temp_book_list.append(book)
+        if sort_by == 'title':
+            temp_book_list = sorted(temp_book_list, key=lambda book: book.title)
+        elif sort_by == 'year':
+            temp_book_list = sorted(temp_book_list, key=lambda book: book.publication_year)
+        return temp_book_list
 
     def books_between_years(self, start_year=None, end_year=None):
         ''' Returns a list of all the Book objects in this data source whose publication
