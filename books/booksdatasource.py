@@ -8,6 +8,7 @@
 '''
 
 import csv
+import operator
 
 class Author:
     def __init__(self, surname='', given_name='', birth_year=None, death_year=None):
@@ -59,8 +60,7 @@ class BooksDataSource:
                 # add authors + books to big lists
                 self.append_unique_authors(author_list)
                 # parse books
-                # self.full_book_list.append(Book(line[0], line[1], author_list))
-                self.full_book_list.append(1)
+                self.full_book_list.append(Book(line[0], line[1], author_list))
                 
     def append_unique_authors(self, author_list):
         for author in author_list:
@@ -116,5 +116,10 @@ class BooksDataSource:
             during start_year should be included. If both are None, then all books
             should be included.
         '''
-        return []
+        temp_book_list = self.full_book_list.copy()
+        print("length",len(temp_book_list))
+        # temp_book_list = sorted(temp_book_list, key=lambda book: book.publication_year)
+        temp_book_list = sorted(temp_book_list, key=operator.attrgetter('publication_year'))
+        print(temp_book_list[0].publication_year)
+        return temp_book_list
 

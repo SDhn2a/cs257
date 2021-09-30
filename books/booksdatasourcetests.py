@@ -118,7 +118,7 @@ class BooksDataSourceTester(unittest.TestCase):
 
     # confirms that a noninteger search returns an error
     def test_noninteger_range_search(self):
-        self.assertRaises(SomeSortOfError,self.data_source.books_between_years,self.data_source,"qazx")
+        self.assertRaises(TypeError,self.data_source.books_between_years,self.data_source,"qazx")
         
     # confirms that a bad range search doesn't return results
     def test_impossible_range_search(self):
