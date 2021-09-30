@@ -76,9 +76,9 @@ class BooksDataSource:
             author_dates = author_data[len(author_data)-1] # the last element is all of the dates
             author_dates_list = author_dates[1:-1].split("-") # turns the birth/death dates into a list
             if(len(author_dates_list) == 1): # add author to list to return
-                author_list.append(Author(author_given_name, author_surname, author_dates_list[0]))
+                author_list.append(Author(author_surname, author_given_name, author_dates_list[0]))
             else: # add author to list to return
-                author_list.append(Author(author_given_name, author_surname, author_dates_list[0], author_dates_list[1]))
+                author_list.append(Author(author_surname, author_given_name, author_dates_list[0], author_dates_list[1]))
         
         return author_list
 
@@ -88,7 +88,17 @@ class BooksDataSource:
             returns all of the Author objects. In either case, the returned list is sorted
             by surname, breaking ties using given name (e.g. Ann Brontë comes before Charlotte Brontë).
         '''
-        return self.full_author_list
+        
+        temp_author_list = []
+        for author in self.full_author_list:
+            # adds given name twice so that search 'n Bron' would return Ann Bronte and  'Bronte, A' would 
+            # return Ann Bronte
+            temp_full_name = author.given_name + ' ' + author.surname + ', ' + author.given_name
+            if search_text == None or temp_full_name.__contains__(search_text):
+                temp_author_list.append(author)
+        temp_author_list = sorted(temp_author_list, key=lambda author: author.surname + author.given_name)
+        return temp_author_list
+
 
     def books(self, search_text=None, sort_by='title'):
         ''' Returns a list of all the Book objects in this data source whose
