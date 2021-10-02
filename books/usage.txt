@@ -1,11 +1,11 @@
-book.py(1)                                                    User Commands                                                             book.py(1)
+books.py(1)                                                    User Commands                                                             books.py(1)
 
 NAME
-       book.py - book references
+       books.py - book references
 
 SYNOPSIS
-       python3 book.py [OPTION]... [SEARCH-PARAMETER]
-       python3 book.py [OPTION]... -R [RANGE-PARAMETER 1] [RANGE-PARAMETER 2]
+       python3 books.py [OPTION]... [SEARCH-PARAMETER]
+       python3 books.py [OPTION]... -R [RANGE-PARAMETER 1] [RANGE-PARAMETER 2]
 
 
 DESCRIPTION
@@ -49,4 +49,4 @@ REPORTING BUGS
 SEE ALSO
        More information at: <>https://cs.carleton.edu/faculty/jondich/courses/cs257_f21/assignments/06_books.html>
 
-                                                                  September 2021                                                            book.py(1)
+                                                                  September 2021                                                            books.py(1)
