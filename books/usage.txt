@@ -32,7 +32,7 @@ DESCRIPTION
        
        If you specify more then one of -A, -T, or -R, only the final one takes effect.
            
-        -h, -?, --help
+       -h, -?, --help
               display this help index and exit
 
 Exit status:
