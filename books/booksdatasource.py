@@ -20,6 +20,14 @@ class Author:
         ''' For simplicity, we're going to assume that no two authors have the same name. '''
         return self.surname.lower() == other.surname.lower() and self.given_name.lower() == other.given_name.lower()
 
+    def __str__(self):
+        return_string = self.given_name+" "+self.surname+" ("+str(self.birth_year)
+        if self.death_year == None:
+            return_string += "-)"
+        else:
+            return_string += "-"+str(self.death_year)+")"
+        return return_string
+
 class Book:
     def __init__(self, title='', publication_year=None, authors=[]):
         ''' Note that the self.authors instance variable is a list of
@@ -33,6 +41,16 @@ class Book:
             no two books have the same title, so "same title" is the same
             thing as "same book". '''
         return self.title.lower() == other.title.lower()
+    
+    def __str__(self):
+        return_string = self.title+", "+str(self.publication_year)+", "
+        num_authors = len(self.authors)
+        for author in self.authors:
+            num_authors -= 1
+            return_string += str(author)
+            if num_authors > 0:
+                return_string += " and "
+        return return_string
 
 class BooksDataSource:
     def __init__(self, books_csv_file_name):
@@ -52,7 +70,7 @@ class BooksDataSource:
         self.full_author_list = []
         self.full_book_list = []
 
-        with open('books1.csv') as csv_file:
+        with open(books_csv_file_name) as csv_file:
             csv_reader = csv.reader(csv_file)
             for line in csv_reader:
                 author_list = self.parse_book_authors(line[2])
@@ -89,15 +107,26 @@ class BooksDataSource:
             by surname, breaking ties using given name (e.g. Ann Brontë comes before Charlotte Brontë).
         '''
         
-        temp_author_list = []
-        for author in self.full_author_list:
+        # temp_author_list = []
+        # for author in self.full_author_list:
+        #     # adds given name twice so that search 'n Bron' would return Ann Bronte and  'Bronte, A' would 
+        #     # return Ann Bronte
+        #     temp_full_name = author.given_name + ' ' + author.surname + ', ' + author.given_name
+        #     if search_text == None or temp_full_name.__contains__(search_text):
+        #         temp_author_list.append(author)
+        # temp_author_list = sorted(temp_author_list, key=lambda author: author.surname + author.given_name)
+        # return temp_author_list
+        
+        temp_book_list = []
+        for book in self.full_book_list:
             # adds given name twice so that search 'n Bron' would return Ann Bronte and  'Bronte, A' would 
             # return Ann Bronte
-            temp_full_name = author.given_name + ' ' + author.surname + ', ' + author.given_name
-            if search_text == None or temp_full_name.__contains__(search_text):
-                temp_author_list.append(author)
-        temp_author_list = sorted(temp_author_list, key=lambda author: author.surname + author.given_name)
-        return temp_author_list
+            for author in book.authors:
+                temp_full_name = author.given_name + ' ' + author.surname + ', ' + author.given_name
+                if search_text == None or temp_full_name.__contains__(search_text):
+                    temp_book_list.append(book)
+        temp_book_list = sorted(temp_book_list, key=lambda book: book.authors[0].surname + book.authors[0].given_name)
+        return temp_book_list
 
 
     def books(self, search_text=None, sort_by='title'):
