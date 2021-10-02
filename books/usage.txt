@@ -1,11 +1,11 @@
-bookref.py(1)                                                    User Commands                                                             bookref.py(1)
+book.py(1)                                                    User Commands                                                             book.py(1)
 
 NAME
-       bookref.py - book references
+       book.py - book references
 
 SYNOPSIS
-       python3 bookref.py [OPTION]... [SEARCH-PARAMETER]
-       python3 bookref.py [OPTION]... -R [RANGE-PARAMETER 1] [RANGE-PARAMETER 2]
+       python3 book.py [OPTION]... [SEARCH-PARAMETER]
+       python3 book.py [OPTION]... -R [RANGE-PARAMETER 1] [RANGE-PARAMETER 2]
 
 
 DESCRIPTION
@@ -13,21 +13,21 @@ DESCRIPTION
 
        Mandatory arguments to long options are mandatory for short options too.
 
-       -p, --sort=publication-year
+       -p, --sort_publication_year
               displays results sorted by publication year
 
-       -t, --sort=title
+       -t, --sort_title
               displays results sorted by title
        
        If you specify more then one of -p or -t, only the final one takes effect.
 
-       -A, --search=author
+       -A, --search_author
               prints a list of books whose authors' names contain the search parameter; displayed in order of author; if no search parameter is provided, prints all books
        
-       -T, --search=title
+       -T, --search_title
               prints a list of books whose names contain the search parameter; if no search parameter is provided, prints all books
 
-       -R, --search=range
+       -R, --search_range
               given 2 range parameters of years, prints a list of books published between the parameters, inclusive, in order of published year; if only one range parameter is provided, prints a list of books published in that year; if no search parameter is provided, prints all books
        
        If you specify more then one of -A, -T, or -R, only the final one takes effect.
@@ -49,4 +49,4 @@ REPORTING BUGS
 SEE ALSO
        More information at: <>https://cs.carleton.edu/faculty/jondich/courses/cs257_f21/assignments/06_books.html>
 
-                                                                  September 2021                                                            bookref.py(1)
+                                                                  September 2021                                                            book.py(1)
