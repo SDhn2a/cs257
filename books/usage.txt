@@ -1,7 +1,7 @@
 books.py(1)                                                    User Commands                                                             books.py(1)
 
 NAME
-       books.py - book references
+       books.py - book reference and search utilities for csv
 
 SYNOPSIS
        python3 books.py [OPTION]... [SEARCH-PARAMETER]
@@ -11,7 +11,7 @@ SYNOPSIS
 DESCRIPTION
        List filtered book information. Will default to searching by title if no flags are provided.
 
-       Mandatory arguments to long options are mandatory for short options too.
+       Mandatory arguments for long options are mandatory for short options too.
 
        -p, --sort_publication_year
               displays results sorted by publication year
@@ -21,18 +21,18 @@ DESCRIPTION
        
        If you specify more then one of -p or -t, -p take precedence.
 
-       -A, --search_author
-              prints a list of books whose authors' names contain the search parameter; displayed in order of author; if no search parameter is provided, prints all books
+       -R, --search_range
+              given 2 range parameters of years, prints a list of books published between the parameters, inclusive, in order of published year; if only one range parameter is provided, prints a list of books published in that year; if no search parameter is provided, prints all books
        
        -T, --search_title
               prints a list of books whose names contain the search parameter; if no search parameter is provided, prints all books
 
-       -R, --search_range
-              given 2 range parameters of years, prints a list of books published between the parameters, inclusive, in order of published year; if only one range parameter is provided, prints a list of books published in that year; if no search parameter is provided, prints all books
+       -A, --search_author
+              prints a list of books whose authors' names contain the search parameter; displayed in order of author; if no search parameter is provided, prints all books
        
-       If you specify more then one of -A, -T, or -R, -R takes precedence over -T which takes precedence over -A.
+       If you specify more then one of -R, -T, or -A, -R takes precedence over -T, which takes precedence over -A.
            
-       -h, -?, --help
+       -h, --help
               display this help index and exit
 
 Exit status:

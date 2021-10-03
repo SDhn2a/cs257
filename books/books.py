@@ -2,9 +2,8 @@
     books.py
     Lev Shuster and Soren DeHaan, 2 October 2021
 
-    For use in the "books" assignment at the beginning of Carleton's
-    CS 257 Software Design class, Fall 2021.
-    add commandline interface work here
+    The command-line interface operating from the books data
+    source framework.
 '''
 
 import booksdatasource, argparse
@@ -12,11 +11,10 @@ from sys import argv
 
 CSV_SOURCE = 'books1.csv'
 
-''' 
-    set up parse and bookdatasource, direct parse results to 
-    propper booksdatasource method, and then print the results.
-'''
 def main(argv):
+    '''set up parse and bookdatasource, direct parse results to 
+        proper booksdatasource method, and then print the results.
+    '''
     # arg parse setup
     arguments = get_parsed_arguments()
 
@@ -27,7 +25,7 @@ def main(argv):
     if arguments.search_range or arguments.search_range != None:
         books_list = books_list.books_between_years(*arguments.search_range)
 
-    # else if search_title flag is present determin which sort method should be used
+    # else if search_title flag is present determine which sort method should be used
     # then trigger booksdatasource.books
     elif arguments.search_title:
         if arguments.sort_publication_year:
@@ -43,7 +41,7 @@ def main(argv):
     elif arguments.sort_publication_year:
         books_list = books_list.books(None,'year')
     
-    # else sort all books
+    # else sort all books by title
     else:
         books_list = books_list.books()
 
