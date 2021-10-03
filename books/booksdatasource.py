@@ -21,6 +21,8 @@ class Author:
         return self.surname.lower() == other.surname.lower() and self.given_name.lower() == other.given_name.lower()
 
     def __str__(self):
+        ''' A custom string function, which makes it nicer to print out the
+            authors, and keeps formatting consistent.'''
         return_string = self.given_name+" "+self.surname+" ("+str(self.birth_year)
         if self.death_year == None:
             return_string += "-)"
@@ -43,6 +45,8 @@ class Book:
         return self.title.lower() == other.title.lower()
     
     def __str__(self):
+        ''' A custom string function, which makes it nicer to print out the
+            books, and keeps formatting consistent.'''
         return_string = self.title+", "+str(self.publication_year)+", "
         num_authors = len(self.authors)
         for author in self.authors:
@@ -80,11 +84,16 @@ class BooksDataSource:
                 self.full_book_list.append(Book(line[0], int(line[1]), author_list))
                 
     def append_unique_authors(self, author_list):
+        ''' Helper function. Adds all Authors which are not already in the full list of
+            authors to the list. This is separate to enable combining multiple sources
+            in the future. Scalability!'''
         for author in author_list:
             if author not in self.full_author_list:
                 self.full_author_list.append(author)
 
     def parse_book_authors(self, author_input_string):
+        ''' Helper function. Creates a list of all the Author objects in the input source,
+            and returns it.'''
         author_input_list = author_input_string.split("and") # takes input, splits in case of mult. authors
         author_list = [] # this list is what will get returned, and contains newly-parsed authors
         for author_input in author_input_list:
@@ -101,30 +110,28 @@ class BooksDataSource:
         return author_list
 
     def authors(self, search_text=None):
-        ''' Returns a list of all the Author objects in this data source whose names contain
-            (case-insensitively) the search text. If search_text is None, then this method
-            returns all of the Author objects. In either case, the returned list is sorted
-            by surname, breaking ties using given name (e.g. Ann Brontë comes before Charlotte Brontë).
+        ''' Returns a list of all the Book objects in this data source whose authors' names 
+            contain (case-insensitively) the search text. If search_text is None, then this
+            method returns all of the Book objects. In either case, the returned list is
+            sorted by author surname, breaking ties using given name (e.g. Ann Brontë comes
+            before Charlotte Brontë).
         '''
         
-        # temp_author_list = []
-        # for author in self.full_author_list:
-        #     # adds given name twice so that search 'n Bron' would return Ann Bronte and  'Bronte, A' would 
-        #     # return Ann Bronte
-        #     temp_full_name = author.given_name + ' ' + author.surname + ', ' + author.given_name
-        #     if search_text == None or temp_full_name.__contains__(search_text):
-        #         temp_author_list.append(author)
-        # temp_author_list = sorted(temp_author_list, key=lambda author: author.surname + author.given_name)
-        # return temp_author_list
-        
+        # So in the assignment description, we're supposed to search the *books* by author,
+        # but in the original code description here, it just said to search authors. We're
+        # operating under the assumption that the assignment description is the most up to
+        # date, and have updated the code block description above accordingly.
+
         temp_book_list = []
         for book in self.full_book_list:
-            # adds given name twice so that search 'n Bron' would return Ann Bronte and  'Bronte, A' would 
-            # return Ann Bronte
             for author in book.authors:
+                # adds given name twice so that search 'n Bron' would return Ann Bronte and 'Bronte, A' would 
+                # return Ann Bronte
                 temp_full_name = author.given_name + ' ' + author.surname + ', ' + author.given_name
                 if search_text == None or temp_full_name.__contains__(search_text):
-                    temp_book_list.append(book)
+                    temp_book_list.append(book) # add books for which at least one author is in the search
+                    break
+        # sort by last name, with first name as tie breaker
         temp_book_list = sorted(temp_book_list, key=lambda book: book.authors[0].surname + book.authors[0].given_name)
         return temp_book_list
 
@@ -164,6 +171,7 @@ class BooksDataSource:
         '''
         temp_book_list = []
         for book in self.full_book_list:
+            # nested if statements ensure all cases are nicely handled
             if (start_year == None or book.publication_year >= start_year):
                 if (end_year == None or book.publication_year <= end_year):
                     temp_book_list.append(book)
