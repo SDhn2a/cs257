@@ -34,7 +34,7 @@ class BooksDataSourceTester(unittest.TestCase):
 
     # confirms that no same author is being turned into multiple author instances
     def test_number_of_authors(self):
-        self.assertEqual(len(self.data_source.authors()),22)
+        self.assertEqual(len(self.data_source.full_author_list),22)
 
 
 
@@ -90,11 +90,11 @@ class BooksDataSourceTester(unittest.TestCase):
 
     # confirms that an empty author search returns all results
     def test_none_author_search(self):
-        self.assertEqual(len(self.data_source.authors(None)),22)
+        self.assertEqual(len(self.data_source.authors(None)),41)
 
     # confirms that a good author search returns the correct, sorted data
     def test_good_author_search(self):
-        self.assertEqual(self.data_source.authors("Bron")[0].given_name,"Ann")
+        self.assertEqual(self.data_source.authors("Bron")[0].authors[0].given_name,"Ann")
 
 
 
