@@ -71,9 +71,13 @@ class BooksDataSource:
             suitable instance variables for the BooksDataSource object containing
             a collection of Author objects and a collection of Book objects.
         '''
+        #stores all the author objects created from the csv file (diplicate authors are not entered)
         self.full_author_list = []
+
+        # stores all the book object created from the csv file
         self.full_book_list = []
 
+        #saftely opens csv file and parses the entries into author and book objects
         with open(books_csv_file_name) as csv_file:
             csv_reader = csv.reader(csv_file)
             for line in csv_reader:
@@ -131,6 +135,7 @@ class BooksDataSource:
                 if search_text == None or temp_full_name.__contains__(search_text):
                     temp_book_list.append(book) # add books for which at least one author is in the search
                     break
+                
         # sort by last name, with first name as tie breaker
         temp_book_list = sorted(temp_book_list, key=lambda book: book.authors[0].surname + book.authors[0].given_name)
         return temp_book_list
@@ -149,13 +154,18 @@ class BooksDataSource:
                             or 'title', just do the same thing you would do for 'title')
         '''
         temp_book_list = []
+
+        # add each book to temp list if it matches search paramenter (or is empty)
         for book in self.full_book_list:
             if search_text == None or book.title.lower().__contains__(search_text.lower()):
                 temp_book_list.append(book)
+        
+        # sort by specified catagory
         if sort_by == 'title':
             temp_book_list = sorted(temp_book_list, key=lambda book: book.title)
         elif sort_by == 'year':
             temp_book_list = sorted(temp_book_list, key=lambda book: book.publication_year)
+        
         return temp_book_list
 
     def books_between_years(self, start_year=None, end_year=None):
