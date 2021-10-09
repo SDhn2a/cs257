@@ -6,8 +6,7 @@
     source framework.
 '''
 
-import booksdatasource, argparse
-from sys import argv 
+import booksdatasource, argparse, sys 
 
 CSV_SOURCE = 'books1.csv'
 
@@ -15,37 +14,29 @@ def main(argv):
     '''set up parse and bookdatasource, direct parse results to 
         proper booksdatasource method, and then print the results.
     '''
-    # arg parse setup
     arguments = get_parsed_arguments()
-
-    # booksdatasource setup
     books_list = booksdatasource.BooksDataSource(CSV_SOURCE)
 
-    # if source_range flag is used trigger books_between_years
+    # the following conditional statments determin which booksdatasource fuction should 
+    # populate books_list 
     if arguments.search_range or arguments.search_range != None:
         books_list = books_list.books_between_years(*arguments.search_range)
 
-    # else if search_title flag is present determine which sort method should be used
-    # then trigger booksdatasource.books
     elif arguments.search_title:
         if arguments.sort_publication_year:
             books_list = books_list.books(*arguments.search_title,'year')
         else:
             books_list = books_list.books(*arguments.search_title,'title')
 
-    # else if search_author flag is tripped trigger booksdatasource.authors
     elif arguments.search_author or arguments.search_author != None:
         books_list = books_list.authors(*arguments.search_author)
     
-    # else if sort_publication_year flag is tripped trigger booksdatasource.books
     elif arguments.sort_publication_year:
         books_list = books_list.books(None,'year')
     
-    # else sort all books by title
     else:
         books_list = books_list.books()
 
-    # print the results of booksdatasource
     for book in books_list:
         print(book)
     
@@ -67,4 +58,4 @@ def get_parsed_arguments():
     
 
 if __name__ == '__main__':
-    main(argv[1:])
+    main(sys.argv[1:])
