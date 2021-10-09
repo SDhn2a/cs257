@@ -88,15 +88,21 @@ class BooksDataSource:
     def parse_book_authors(self, author_input_string):
         ''' Helper function. Creates a list of all the Author objects in the input source,
             and returns it.'''
+        
+        GIVEN_NAME_COLUMN = 0
+        SURNAME_COLUMN = -2
+        AUTHOR_DATE_COLUMN = -1
+
         author_input_list = author_input_string.split("and") # in case of mult. authors
         author_list = [] # this list is what will get returned, and contains newly-parsed authors
         for author_input in author_input_list:
             author_data = author_input.split()
-            author_given_name = author_data[0] 
-            author_surname = author_data[len(author_data)-2] # the second to last element is the surname
+            author_given_name = author_data[GIVEN_NAME_COLUMN] 
+            author_surname = author_data[len(author_data) + SURNAME_COLUMN]
 
-            author_dates = author_data[len(author_data)-1] # the last element is all of the dates
+            author_dates = author_data[len(author_data) + AUTHOR_DATE_COLUMN]
             author_dates_list = author_dates[1:-1].split("-")
+
             # puts all the bits togeter into an Author instance depending on if there is a death year
             if(len(author_dates_list) == 1):
                 author_list.append(Author(author_surname, author_given_name, author_dates_list[0]))
