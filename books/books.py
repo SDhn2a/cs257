@@ -11,7 +11,7 @@ import booksdatasource, argparse, sys
 CSV_SOURCE = 'books1.csv'
 
 def main(argv):
-    '''set up parse and bookdatasource, direct parse results to 
+    ''' set up parse and bookdatasource, direct parse results to 
         proper booksdatasource method, and then print the results.
     '''
     arguments = get_parsed_arguments()

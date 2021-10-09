@@ -17,12 +17,10 @@ class Author:
         self.death_year = death_year
 
     def __eq__(self, other):
-        ''' For simplicity, we're going to assume that no two authors have the same name. '''
+        ''' assume no two authors have the same name. '''
         return self.surname.lower() == other.surname.lower() and self.given_name.lower() == other.given_name.lower()
 
     def __str__(self):
-        ''' A custom string function, which makes it nicer to print out the
-            authors, and keeps formatting consistent.'''
         return_string = self.given_name+" "+self.surname+" ("+str(self.birth_year)
         if self.death_year == None:
             return_string += "-)"
@@ -39,14 +37,11 @@ class Book:
         self.authors = authors
 
     def __eq__(self, other):
-        ''' We're going to make the excessively simplifying assumption that
-            no two books have the same title, so "same title" is the same
-            thing as "same book". '''
+        ''' assumes that no two books have the same title'''
         return self.title.lower() == other.title.lower()
     
     def __str__(self):
-        ''' A custom string function, which makes it nicer to print out the
-            books, and keeps formatting consistent.'''
+        ''' prints title, publication year, then the each author string method gets used'''
         return_string = self.title+", "+str(self.publication_year)+", "
         num_authors = len(self.authors)
         for author in self.authors:
@@ -67,30 +62,25 @@ class BooksDataSource:
                 All Clear,2010,Connie Willis (1945-)
                 "Right Ho, Jeeves",1934,Pelham Grenville Wodehouse (1881-1975)
 
-            This __init__ method parses the specified CSV file and creates
+            parses the specified CSV file and creates
             suitable instance variables for the BooksDataSource object containing
             a collection of Author objects and a collection of Book objects.
         '''
-        #stores all the author objects created from the csv file (diplicate authors are not entered)
         self.full_author_list = []
-
-        # stores all the book object created from the csv file
         self.full_book_list = []
 
-        #saftely opens csv file and parses the entries into author and book objects
         with open(books_csv_file_name) as csv_file:
             csv_reader = csv.reader(csv_file)
             for line in csv_reader:
                 author_list = self.parse_book_authors(line[2])
-                # add authors + books to big lists
                 self.append_unique_authors(author_list)
+
                 # parse books
                 self.full_book_list.append(Book(line[0], int(line[1]), author_list))
                 
     def append_unique_authors(self, author_list):
         ''' Helper function. Adds all Authors which are not already in the full list of
-            authors to the list. This is separate to enable combining multiple sources
-            in the future. Scalability!'''
+            authors to the list.'''
         for author in author_list:
             if author not in self.full_author_list:
                 self.full_author_list.append(author)
@@ -98,17 +88,19 @@ class BooksDataSource:
     def parse_book_authors(self, author_input_string):
         ''' Helper function. Creates a list of all the Author objects in the input source,
             and returns it.'''
-        author_input_list = author_input_string.split("and") # takes input, splits in case of mult. authors
+        author_input_list = author_input_string.split("and") # in case of mult. authors
         author_list = [] # this list is what will get returned, and contains newly-parsed authors
         for author_input in author_input_list:
             author_data = author_input.split()
-            author_given_name = author_data[0] # the first element of author_data is the given name
+            author_given_name = author_data[0] 
             author_surname = author_data[len(author_data)-2] # the second to last element is the surname
+
             author_dates = author_data[len(author_data)-1] # the last element is all of the dates
-            author_dates_list = author_dates[1:-1].split("-") # turns the birth/death dates into a list
-            if(len(author_dates_list) == 1): # add author to list to return
+            author_dates_list = author_dates[1:-1].split("-")
+            # puts all the bits togeter into an Author instance depending on if there is a death year
+            if(len(author_dates_list) == 1):
                 author_list.append(Author(author_surname, author_given_name, author_dates_list[0]))
-            else: # add author to list to return
+            else: 
                 author_list.append(Author(author_surname, author_given_name, author_dates_list[0], author_dates_list[1]))
         
         return author_list
@@ -133,7 +125,7 @@ class BooksDataSource:
                 # return Ann Bronte
                 temp_full_name = author.given_name + ' ' + author.surname + ', ' + author.given_name
                 if search_text == None or temp_full_name.__contains__(search_text):
-                    temp_book_list.append(book) # add books for which at least one author is in the search
+                    temp_book_list.append(book)
                     break
                 
         # sort by last name, with first name as tie breaker
@@ -181,7 +173,6 @@ class BooksDataSource:
         '''
         temp_book_list = []
         for book in self.full_book_list:
-            # nested if statements ensure all cases are nicely handled
             if (start_year == None or book.publication_year >= start_year):
                 if (end_year == None or book.publication_year <= end_year):
                     temp_book_list.append(book)
