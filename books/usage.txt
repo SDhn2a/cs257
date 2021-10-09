@@ -11,6 +11,8 @@ SYNOPSIS
 DESCRIPTION
        List filtered book information. Will default to searching by title if no flags are provided.
 
+       Only the first and last names of authors are considered.
+
        Mandatory arguments for long options are mandatory for short options too.
 
        -p, --sort_publication_year
@@ -22,7 +24,7 @@ DESCRIPTION
        If you specify more then one of -p or -t, -p take precedence.
 
        -R, --search_range
-              given 2 range parameters of years, prints a list of books published between the parameters, inclusive, in order of published year; if only one range parameter is provided, prints a list of books published in that year; if no search parameter is provided, prints all books
+              given 2 range parameters of years, prints a list of books published between the parameters, inclusive, in order of published year; if only one range parameter is provided, prints a list of books published no earlier than that year; if no search parameter is provided, prints all books
        
        -T, --search_title
               prints a list of books whose names contain the search parameter; if no search parameter is provided, prints all books

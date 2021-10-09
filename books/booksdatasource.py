@@ -2,6 +2,7 @@
 '''
     booksdatasource.py
     Lev Shuster and Soren DeHaan, 2 October 2021
+    Revised by Lev Shuster and Soren DeHaan
 
     For use in the "books" assignment at the beginning of Carleton's
     CS 257 Software Design class, Fall 2021.
@@ -101,7 +102,7 @@ class BooksDataSource:
             author_surname = author_data[len(author_data) + SURNAME_COLUMN]
 
             author_dates = author_data[len(author_data) + AUTHOR_DATE_COLUMN]
-            author_dates_list = author_dates[1:-1].split("-")
+            author_dates_list = author_dates[1:-1].split("-") # 1, -1 indices to remove parenthesis
 
             # puts all the bits togeter into an Author instance depending on if there is a death year
             if(len(author_dates_list) == 1):
@@ -119,10 +120,9 @@ class BooksDataSource:
             before Charlotte Brontë).
         '''
         
-        # So in the assignment description, we're supposed to search the *books* by author,
-        # but in the original code description here, it just said to search authors. We're
-        # operating under the assumption that the assignment description is the most up to
-        # date, and have updated the code block description above accordingly.
+        # The assignment description suggested returning Books sorted by author, but the code
+        # description wanted to return a list of Author objects. We've implemented this as
+        # returning a list of Book objects that satisfy the author constraints.
 
         temp_book_list = []
         for book in self.full_book_list:
@@ -158,7 +158,7 @@ class BooksDataSource:
             if search_text == None or book.title.lower().__contains__(search_text.lower()):
                 temp_book_list.append(book)
         
-        # sort by specified catagory
+        # sort by specified category
         if sort_by == 'title':
             temp_book_list = sorted(temp_book_list, key=lambda book: book.title)
         elif sort_by == 'year':

@@ -1,6 +1,7 @@
 '''
     books.py
     Lev Shuster and Soren DeHaan, 2 October 2021
+    Revised by Lev Shuster and Soren DeHaan
 
     The command-line interface operating from the books data
     source framework.
@@ -26,6 +27,7 @@ def main(argv):
         if arguments.sort_publication_year:
             books_list = books_list.books(*arguments.search_title,'year')
         else:
+            # incorrect command line arguments are caught by argparse, so else case won't trigger off incorrect arguments
             books_list = books_list.books(*arguments.search_title,'title')
 
     elif arguments.search_author or arguments.search_author != None:
@@ -44,15 +46,15 @@ def main(argv):
 def get_parsed_arguments():
     parser = argparse.ArgumentParser(description='List filtered book information. Will default to searching by title if no flags are provided.')
     
-    # parse sorts
-    parser.add_argument('--sort_publication_year','-p',action='store_true',help='displays results sorted by publication year')
-    parser.add_argument('--sort_title','-t',action='store_true',help='displays results sorted by title')
-    
     # parse searches
-    parser.add_argument('--search_range','-R',type=int,nargs='*',help='given 2 range parameters of years, prints a list of books published between the parameters, inclusive, in order of published year; if only one range parameter is provided, prints a list of books published in that year; if no search parameter is provided, prints all books')
+    parser.add_argument('--search_range','-R',type=int,nargs='*',help='given 2 range parameters of years, prints a list of books published between the parameters, inclusive, in order of published year; if only one range parameter is provided, prints a list of books published no earlier than that year; if no search parameter is provided, prints all books')
     parser.add_argument('--search_title','-T',nargs='*',help='prints a list of books whose names contain the search parameter; if no search parameter is provided, prints all books')
     parser.add_argument('--search_author','-A',nargs='*',help='prints a list of books whose authors\' names contain the search parameter; displayed in order of author; if no search parameter is provided, prints all books')
     
+    # parse sorts
+    parser.add_argument('--sort_publication_year','-p',action='store_true',help='displays results sorted by publication year')
+    parser.add_argument('--sort_title','-t',action='store_true',help='displays results sorted by title')
+
     return parser.parse_args()
 
     
