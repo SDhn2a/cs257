@@ -7,3 +7,4 @@
 - I am not totally sure why the date doesn’t work entirely as expected from the command line but it is something to look into
 # changes that we are not making
 - That's up to you. When you print an author with the author's books, do you indent the books below the author
+- made tag before final push is that an issue?
